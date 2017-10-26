@@ -1,0 +1,83 @@
+Demonstration 2: Decimal to binary
+-----------
+
+Show how to convert 153 back to a binary number using `to_s(2)`:
+
+```
+irb> 153.to_s(2)
+=> "10011001"
+```
+
+Incidentally, we can convert individual characters to their ascii equivalent and then to binary: 
+
+```
+irb> "a".ord
+=> 97
+irb> "a".ord.to_s(2)
+=> "1100001"
+```
+
+Demonstration 3: Bitwise operators in Ruby
+-----------
+
+Show the Ruby bitwise operators in action: 
+
+```
+# ^ is XOR
+irb> (0b10011001 ^ 0b00011000)
+=> 129
+
+# XOR, to binary!
+irb> (0b10011001 ^ 0b00011000).to_s(2)
+=> "10000001"
+
+# & is AND
+irb> (0b10011001 & 0b00011000).to_s(2)
+=> "11000"
+# note the leading zeros are not shown here, equivalent to 
+# "00011000"
+
+# | is OR
+irb> (0b10011001 | 0b00011000).to_s(2)
+=> "10011001"
+
+# << is SHIFT LEFT 
+irb> (0b10011001 << 1).to_s(2)
+=> "100110010"
+
+# note SHIFT LEFT multiplies by 2
+irb> (0b10011001)
+=> 153
+irb> (0b10011001 << 1)
+=> 306
+
+# >> is SHIFT RIGHT
+irb> (0b10011001 >> 1).to_s(2)
+=> "1001100"
+
+# note SHIFT RIGHT divides by 2 (and rounds UP)
+irb> (0b10011001)
+=> 153
+irb> (0b10011001 >> 1)
+=> 76
+```
+
+There is also the bitwise NOT operator, `~` and using `to_s` does not show what we expect, because of how negative numbers are handled in binary.  For more on this see: 
+
+https://www.calleerlandsson.com/rubys-bitwise-operators/
+
+In short, there are some ways NOT using `to_s(2)` so we can see the result of a bitwise NOT.
+
+1. output each bit via `map`:
+```
+irb> 7.downto(0).map { |n| (~0b10011001)[n] }.join
+=> "01100110"
+```
+
+2. XOR with `1`s:
+
+```
+irb> (0b10011001 ^ 0b11111111).to_s(2)
+=> "1100110"
+# note the leading zero is not shown here
+# "01100110"
